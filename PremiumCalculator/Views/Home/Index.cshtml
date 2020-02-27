@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<div class="tab-content">
+    <div class="card text-center">
+        <div class="card-body row">
+            <div class="col-md-2 text-right">
+                <button id="Generate" class="btn btn-success mt-0">Get Value</button>
+            </div>
+            <div class="col-md-2">
+                <input id="tbValue" type="text" class="form-control" disabled />
+            </div>
+            <div class="col-md-3">
+                <select id="slPeriods" class="form-control" name="select">
+                    <option value="0">Select</option>
+                    <option value="1">Monthly</option>
+                    <option value="2">Quarterly</option>
+                    <option value="3">SemiAnually</option>
+                    <option value="4">Anually</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group row">
+                    <label for="tbAnnual" class="col-md-3 col-form-label">Annual:</label>
+                    <input id="tbAnnual" type="text" class="form-control col-md-7" disabled />
+                </div>
+                <div class="form-group row">
+                    <label for="tbMonthly" class="col-md-3 col-form-label">Monthly</label>
+                    <input id="tbMonthly" type="text" class="form-control col-md-7" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+        var jsMinValue = 1000;
+        var jsMaxValue = 25000;
+
+        $(function () {
+            AllowControls();
+        });
+
+        $("#Generate").click(function () {
+            GenerateValue()
+        });
+
+        function GenerateValue() {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetNumber", "Calculation")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: {
+                    minValue: jsMinValue,
+                    maxValue: jsMaxValue
+                },
+                success: function (r) {
+                    $('#tbValue').val(Number(r).toFixed(2));
+
+                    AllowControls();
+
+                    if ($('#slPeriods').val() != 0) {
+                        GetCalculation($('#tbValue').val(), $('#slPeriods').val());
+                    }
+                },
+                failure: function (r) {
+                    console.log(r);
+                    alert("There is a failure, check the console logs.")
+                },
+                error: function (r) {
+                    console.log(r);
+                    alert("There is an Error, check the console logs.")
+                }
+            })
+        }
+
+        $("#slPeriods").on('change', function () {
+            var number = $('#tbValue').val();
+
+            if (this.value == 0) {
+                $('#tbAnnual').val(0);
+                $('#tbMonthly').val(0);
+            } else if (this.value != 0 && number >= jsMinValue && number <= jsMaxValue) {
+                GetCalculation(number, this.value);
+            }
+        });
+
+        function GetCalculation(number, period) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetCalculation", "Calculation")",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: {
+                    number: number,
+                    period: period
+                },
+                success: function (r) {
+                    $('#tbAnnual').val(Number(r.annual).toFixed(2));
+                    $('#tbMonthly').val(Number(r.monthly).toFixed(2));
+                },
+                failure: function (r) {
+                    console.log(r);
+                    alert("There is a failure, check the console logs.")
+                },
+                error: function (r) {
+                    console.log(r);
+                    alert("There is an Error, check the console logs.")
+                }
+            })
+        }
+
+        function AllowControls() {
+            if ($('#tbValue').val() == null || $('#tbValue').val() == '') {
+                $('#slPeriods').prop("disabled", true);
+            } else {
+                $('#slPeriods').prop("disabled", false);
+            }
+        }
+    </script>
+}

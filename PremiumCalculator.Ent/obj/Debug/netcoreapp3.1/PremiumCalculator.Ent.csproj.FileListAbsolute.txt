@@ -1,0 +1,8 @@
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\bin\Debug\netcoreapp3.1\PremiumCalculator.Ent.deps.json
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\bin\Debug\netcoreapp3.1\PremiumCalculator.Ent.dll
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\bin\Debug\netcoreapp3.1\PremiumCalculator.Ent.pdb
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\obj\Debug\netcoreapp3.1\PremiumCalculator.Ent.csprojAssemblyReference.cache
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\obj\Debug\netcoreapp3.1\PremiumCalculator.Ent.AssemblyInfoInputs.cache
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\obj\Debug\netcoreapp3.1\PremiumCalculator.Ent.AssemblyInfo.cs
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\obj\Debug\netcoreapp3.1\PremiumCalculator.Ent.dll
+C:\Archivos\Personal\Cignium\PremiumCalculator.Ent\obj\Debug\netcoreapp3.1\PremiumCalculator.Ent.pdb
